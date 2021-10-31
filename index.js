@@ -55,9 +55,9 @@ async function run() {
     //GET API
     app.get("/booking/:id", async (req, res) => {
       const id = req.params.id;
-      const query = { _id: objectId(id) };
-      const singlebooking = await bookingTour.findOne(query);
-      res.json(singlebooking);
+      const query = { _id: ObjectId(id) };
+      const result = await bookingTour.findOne(query);
+      res.json(result);
     });
 
     //POST API
@@ -82,7 +82,6 @@ async function run() {
       const query = { _id: ObjectId(id) };
       const result = await bookingTour.deleteOne(query);
       res.json(result);
-      console.log("delete hit", id);
     });
 
     //get my booking using email
