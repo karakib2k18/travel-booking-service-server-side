@@ -52,6 +52,14 @@ async function run() {
       res.json(result);
     });
 
+    //GET API
+    app.get("/booking/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: objectId(id) };
+      const singlebooking = await bookingTour.findOne(query);
+      res.json(singlebooking);
+    });
+
     //POST API
     app.post("/tourist_place", async (req, res) => {
       const place = req.body;
@@ -59,7 +67,7 @@ async function run() {
       res.json(result);
       // console.log(`A document was inserted with the _id: ${result.insertedId}`);
     });
-    
+
     //POST API FOR BOOKING
     app.post("/booking", async (req, res) => {
       const place = req.body;
@@ -68,26 +76,23 @@ async function run() {
       // console.log(`A document was inserted with the _id: ${result.insertedId}`);
     });
 
-    
     //DELETE API USING OBJECT ID
     app.delete("/booking/:id", async (req, res) => {
       const id = req.params.id;
-      const query = {  _id: ObjectId(id)};
+      const query = { _id: ObjectId(id) };
       const result = await bookingTour.deleteOne(query);
       res.json(result);
-      console.log('delete hit', id)
+      console.log("delete hit", id);
     });
-
 
     //get my booking using email
     app.get("/booking/:email", async (req, res) => {
       const email = req.params.email;
-      const cursor = bookingTour.find({email : email});
+      const cursor = bookingTour.find({ email: email });
       const result = await cursor.toArray();
       res.json(result);
     });
 
-    
     // //UPDATE PUT API
     // app.put("/booking/:id", async (req, res) => {
     //   const id = req.params.id;
@@ -100,7 +105,6 @@ async function run() {
     // const result = await bookingTour.updateOne(filter, updateDoc, options);
     // res.json(result);
     // });
-
   } finally {
     // await client.close();
   }
