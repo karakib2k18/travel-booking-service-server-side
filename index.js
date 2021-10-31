@@ -79,13 +79,14 @@ async function run() {
       res.json(result);
     });
 
-    //get my booking using email
-    app.get("/booking/:email", async (req, res) => {
-      const email = req.params.email;
-      const cursor = bookingTour.find({ email: email });
-      const result = await cursor.toArray();
-      res.json(result);
-    });
+    // get my booking using email
+    //GET API
+    // app.get("/booking/:email", async (req, res) => {
+    //   const emailid = req.params.id;
+    //   const query = { email: emailid };
+    //   const result = await bookingTour.findOne(query);
+    //   res.json(result);
+    // });
 
     // //UPDATE PUT API
     app.put("/booking/:id", async (req, res) => {
@@ -100,7 +101,6 @@ async function run() {
       const result = await bookingTour.updateOne(filter, updateDoc, options);
       res.send(result);
     });
-
 
   } finally {
     // await client.close();
