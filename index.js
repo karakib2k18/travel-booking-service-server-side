@@ -15,11 +15,6 @@ const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
 
 async function run() {
   try {
@@ -96,14 +91,17 @@ async function run() {
     app.put("/booking/:id", async (req, res) => {
       const id = req.params.id;
       const updateStatus = req.body;
-    const filter = { _id: ObjectId(id) };
-    const options = { upsert: true };
-    const updateDoc = {
-      $set: {status : updateStatus.status},
-    };
-    const result = await bookingTour.updateOne(filter, updateDoc, options);
-    res.json(result);
+      console.log('hitting with id', updateStatus.status);
+      const filter = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: { status: updateStatus.status },
+      };
+      const result = await bookingTour.updateOne(filter, updateDoc, options);
+      res.send(result);
     });
+
+
   } finally {
     // await client.close();
   }
