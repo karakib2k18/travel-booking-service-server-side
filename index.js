@@ -80,23 +80,23 @@ async function run() {
     });
 
     // get my booking using email
-    //GET API
-    // app.get("/booking/:email", async (req, res) => {
-    //   const emailid = req.params.id;
-    //   const query = { email: emailid };
-    //   const result = await bookingTour.findOne(query);
-    //   res.json(result);
-    // });
+    // GET API
+    app.get("/booking", async (req, res) => {
+      const query = { email: req.params.email };
+      const result = await bookingTour.findOne(query);
+      res.json(result);
+    });
 
     // //UPDATE PUT API
     app.put("/booking/:id", async (req, res) => {
       const id = req.params.id;
-      const updateStatus = req.body;
-      console.log('hitting with id', updateStatus.status);
-      const filter = { _id: ObjectId(id) };
+      const updateStatus = req.body.status;
+      console.log('hitting with req.body', req.body);
+      const filter = { _id: ObjectId(req.body._id) };
+      console.log('hitting with status', filter);
       const options = { upsert: true };
       const updateDoc = {
-        $set: { status: updateStatus.status },
+        $set: { status : updateStatus }
       };
       const result = await bookingTour.updateOne(filter, updateDoc, options);
       res.send(result);
