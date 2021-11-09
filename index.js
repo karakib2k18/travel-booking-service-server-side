@@ -91,9 +91,9 @@ async function run() {
     app.put("/booking/:id", async (req, res) => {
       const id = req.params.id;
       const updateStatus = req.body.status;
-      console.log('hitting with req.body', req.body);
+      // console.log('hitting with req.body', req.body);
       const filter = { _id: ObjectId(req.body._id) };
-      console.log('hitting with status', filter);
+      // console.log('hitting with status', filter);
       const options = { upsert: true };
       const updateDoc = {
         $set: { status : updateStatus }
